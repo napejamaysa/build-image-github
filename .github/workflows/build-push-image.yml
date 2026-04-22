@@ -19,7 +19,7 @@ jobs:
         run: docker build -t imageku .
 
       - name: Login to GitHub Container Registry
-        run: echo "${{ secrets.TOKEN_GITHUB }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+        run: echo "${{ secrets.TOKEN_GITHUB }}" | docker login ghcr.io -u napejamasya --password-stdin
 
       - name: Tag image
         run: docker tag imageku ghcr.io/napejamaysa/imageku:latest
