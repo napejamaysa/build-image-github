@@ -1,14 +1,16 @@
 name: Build and Push Image
 run-name: Build and Push Image
+
 on: [push]
 
 permissions:
-      contents: read
-      packages: write
+  contents: read
+  packages: write
 
 jobs:
   build-push-image:
     runs-on: ubuntu-latest
+
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
@@ -16,17 +18,20 @@ jobs:
       - name: Build image
         run: docker build -t imageku .
 
-      - name: List image
-        run: docker images
-
-      - name: Cek isi image
-        run: docker history imageku:latest
-
-      - name: Login to GitHub Registry
-        run: echo ${{ secrets.TOKEN_GITHUB }} | docker login ghcr.io -u napejamaysa --password-stdin
+      - name: Login to GitHub Container Registry
+        run: echo "${{ secrets.TOKEN_GITHUB }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Tag image
         run: docker tag imageku ghcr.io/napejamaysa/imageku:latest
 
       - name: Push Image
         run: docker push ghcr.io/napejamaysa/imageku:latest
+
+
+
+
+
+
+
+
+
